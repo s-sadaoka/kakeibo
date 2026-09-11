@@ -107,7 +107,10 @@ kakeibo/
 
 ## 6. iPhone での確認方法
 
-1. GitHub に push すると GitHub Actions が自動でビルドし、数分で `https://<ユーザー名>.github.io/kakeibo/` に反映される
+1. GitHub に push すると GitHub Actions が自動でビルドし、数分で `https://s-sadaoka.github.io/kakeibo/` に反映される
+   - このフォルダは `first_repo` リポジトリのサブフォルダなので、公開用リポジトリ `s-sadaoka/kakeibo`（Public）へは `first_repo` 直下で次を実行して kakeibo 配下だけを送る（2026-09-11 設定）
+     `git subtree push --prefix=kakeibo https://github.com/s-sadaoka/kakeibo.git main`
+   - 進み具合は `gh run list -R s-sadaoka/kakeibo` で確認できる
 2. iPhone の Safari で URL を開き、共有ボタン →「ホーム画面に追加」
 3. ホーム画面のアイコンから起動すると全画面で動く
 4. 更新が反映されないときは、ホーム画面のアプリを一度閉じて再度開く。それでも古いままなら Safari の設定からサイトデータを削除して再追加する（Service Worker のキャッシュが残っているため）
