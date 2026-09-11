@@ -134,7 +134,19 @@ describe('buildMonthSummary', () => {
     expect(s.categories.map((r) => r.category.id)).toEqual(['food', 'daily', 'hobby'])
     expect(s.categories[2]).toMatchObject({ budget: null, spent: 700, remaining: null, status: 'none' })
     expect(s.expense).toBe(700)
-    expect(s.remainingTotal).toBe(35000 - 700)
+    expect(s.remainingTotal).toBe(35000) // 予算未設定カテゴリの支出は全体残額から引かない
+  })
+
+  it('全体の残額は予算設定済みカテゴリの残額の合計で、未設定カテゴリの支出は引かない', () => {
+    const entries = [
+      entry('expense', 10000, 'food'), // 予算 30000 → 残 20000
+      entry('expense', 6000, 'daily'), // 予算 5000 → 残 -1000
+      entry('expense', 999, 'hobby'), // 予算未設定 → 全体残額に影響しない
+    ]
+    const s = buildMonthSummary('2026-09', categories, entries, budgets)
+    expect(s.expense).toBe(16999)
+    expect(s.budgetTotal).toBe(35000)
+    expect(s.remainingTotal).toBe(19000)
   })
 
   it('予算未設定のカテゴリは budget/remaining が null で、予算合計に含めない', () => {
@@ -142,7 +154,7 @@ describe('buildMonthSummary', () => {
     const dailyRow = s.categories.find((r) => r.category.id === 'daily')
     expect(dailyRow).toMatchObject({ budget: null, spent: 100, remaining: null, status: 'none' })
     expect(s.budgetTotal).toBe(0) // food は 2026-08 から、daily は 2026-09 から。2026-07 はどちらも未設定
-    expect(s.remainingTotal).toBe(-100)
+    expect(s.remainingTotal).toBe(0) // 予算がどこにもないので残額も 0（支出 100 は引かない）
   })
 
   it('予算超過は over になる', () => {

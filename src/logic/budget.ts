@@ -60,7 +60,7 @@ export interface MonthSummary {
   expense: number
   /** 予算が設定されている支出カテゴリの予算合計 */
   budgetTotal: number
-  /** budgetTotal − expense（未設定カテゴリの支出も差し引く） */
+  /** 予算が設定されているカテゴリの残額の合計。予算未設定カテゴリの支出は差し引かない */
   remainingTotal: number
   /** 支出カテゴリのみ。sortOrder 順 */
   categories: CategorySummary[]
@@ -99,13 +99,14 @@ export function buildMonthSummary(
     })
 
   const budgetTotal = rows.reduce((sum, r) => sum + (r.budget ?? 0), 0)
+  const remainingTotal = rows.reduce((sum, r) => sum + (r.remaining ?? 0), 0)
 
   return {
     yearMonth,
     income: totals.income,
     expense: totals.expense,
     budgetTotal,
-    remainingTotal: budgetTotal - totals.expense,
+    remainingTotal,
     categories: rows,
   }
 }
