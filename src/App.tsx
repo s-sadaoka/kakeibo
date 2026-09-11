@@ -1,37 +1,56 @@
 import { useEffect, useState } from 'react'
-import { initializeDatabase, listActiveCategories, type Category } from './data'
+import { TabBar } from './components/TabBar'
+import { initializeDatabase } from './data'
+import { CalendarPage } from './pages/CalendarPage'
+import { EntryPage } from './pages/EntryPage'
+import { HomePage } from './pages/HomePage'
+import { SettingsPage } from './pages/SettingsPage'
+import { useRoute } from './router'
 
-// ステップ 2 の確認用画面。データ層が動いていることを見せるだけで、本番の画面はステップ 4 以降で作る。
 function App() {
-  const [categories, setCategories] = useState<Category[] | null>(null)
+  const route = useRoute()
+  const [ready, setReady] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
     initializeDatabase()
-      .then(() => listActiveCategories())
-      .then(setCategories)
+      .then(() => setReady(true))
       .catch((e: unknown) => setError(e instanceof Error ? e.message : String(e)))
   }, [])
 
+  if (error) {
+    return (
+      <main className="page">
+        <p role="alert">データベースを開けませんでした: {error}</p>
+      </main>
+    )
+  }
+  if (!ready) return <main className="page" />
+
+  let page
+  switch (route.name) {
+    case 'home':
+      page = <HomePage yearMonth={route.yearMonth} />
+      break
+    case 'entryNew':
+      page = <EntryPage key="new" initialDate={route.date} />
+      break
+    case 'entryEdit':
+      page = <EntryPage key={route.id} entryId={route.id} />
+      break
+    case 'calendar':
+      page = <CalendarPage />
+      break
+    case 'settings':
+      page = <SettingsPage />
+      break
+  }
+
   return (
-    <main className="app">
-      <h1>家計簿</h1>
-      {error && <p role="alert">エラー: {error}</p>}
-      {categories === null ? (
-        <p>読み込み中…</p>
-      ) : (
-        <>
-          <p>カテゴリ {categories.length} 件（IndexedDB から取得）</p>
-          <ul>
-            {categories.map((c) => (
-              <li key={c.id}>
-                {c.name}（{c.type === 'expense' ? '支出' : '収入'}）
-              </li>
-            ))}
-          </ul>
-        </>
-      )}
-    </main>
+    <>
+      <main className="page">{page}</main>
+      <TabBar current={route.name} />
+    </>
   )
 }
 

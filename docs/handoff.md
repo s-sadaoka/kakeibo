@@ -28,7 +28,7 @@ Claude Code が最初に環境構築するときの前提です。理由があ�
 | UI | React + TypeScript | 情報量が多く、Claude Code が扱いやすい。型があると初心者でもエラーに気づきやすい |
 | ローカル DB | Dexie.js | IndexedDB を素で触るより大幅に簡潔。エクスポート / インポートも書きやすい |
 | PWA | vite-plugin-pwa | manifest と Service Worker を自動生成 |
-| ルーティング | React Router（または軽量な自前実装） | 画面は 4 つなので、大げさにしない |
+| ルーティング | 自前実装（URL ハッシュ `#/entry/new` など。`src/logic/route.ts` と `src/router.ts`） | 画面は 4 つなので React Router は入れない。ハッシュ方式なら GitHub Pages で深いパスを直接開いても 404 にならず、ホーム画面起動の PWA でも「戻る」が素直に動く（2026-09-11 ステップ 4 で決定） |
 | テスト | Vitest | Vite と相性がよい。集計ロジックのみテスト対象 |
 | CSS | 素の CSS または CSS Modules | ライブラリを増やさない |
 | デプロイ | GitHub Actions → GitHub Pages | push するだけで公開される |
