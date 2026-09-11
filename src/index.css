@@ -409,3 +409,128 @@ select:focus {
   font-size: 16px;
   font-weight: 600;
 }
+
+/* 設定 */
+.settings-section {
+  margin-bottom: 28px;
+}
+.settings-section h2 {
+  margin: 0 0 8px;
+  padding-bottom: 4px;
+  font-size: 17px;
+  font-weight: 600;
+  border-bottom: 1px solid var(--color-border);
+}
+.settings-section h3 {
+  margin: 12px 0 4px;
+  font-size: 14px;
+  color: var(--color-muted);
+  font-weight: 500;
+}
+.small {
+  font-size: 13px;
+}
+.notice {
+  margin: 8px 0 0;
+  font-size: 14px;
+  color: var(--color-primary);
+}
+
+.category-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.category-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 4px 0;
+  border-bottom: 1px solid var(--color-border);
+}
+.category-row.inactive .category-name {
+  color: var(--color-muted);
+}
+.category-name {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.category-actions {
+  display: flex;
+  gap: 4px;
+  flex-shrink: 0;
+}
+.category-edit,
+.category-add {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+  align-items: center;
+}
+.category-add {
+  margin-top: 8px;
+}
+.category-edit input,
+.category-add input {
+  flex: 1;
+  min-width: 0;
+}
+
+.small-button {
+  min-width: 40px;
+  min-height: 36px;
+  padding: 0 8px;
+  font-size: 14px;
+  font-family: inherit;
+  color: var(--color-primary);
+  background: var(--color-bg);
+  border: 1px solid var(--color-primary);
+  border-radius: 6px;
+  white-space: nowrap;
+}
+.small-button.primary {
+  color: var(--color-primary-text);
+  background: var(--color-primary);
+}
+.small-button:disabled {
+  opacity: 0.35;
+}
+
+.month-nav.compact {
+  justify-content: center;
+  gap: 8px;
+}
+.month-nav.compact .month-arrow {
+  font-family: inherit;
+  background: none;
+  border: 0;
+}
+.month-label {
+  min-width: 7em;
+  text-align: center;
+  font-weight: 600;
+}
+.budget-field {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+.budget-label {
+  flex: 0 0 6em;
+  padding-top: 11px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.budget-input {
+  flex: 1;
+  min-width: 0;
+}
+.budget-input input {
+  text-align: right;
+}

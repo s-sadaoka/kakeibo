@@ -28,6 +28,7 @@ export {
   listBudgetsByMonth,
   upsertBudget,
 } from './budgetRepository'
+export { exportAllData, importAllData } from './backupRepository'
 
 /** アプリ起動時に 1 回呼ぶ。初回起動なら初期カテゴリを投入する */
 export async function initializeDatabase(): Promise<void> {
