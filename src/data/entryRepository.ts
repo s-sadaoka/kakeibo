@@ -52,8 +52,3 @@ export async function getEntry(id: string): Promise<Entry | undefined> {
 export async function listEntriesByMonth(yearMonth: string): Promise<Entry[]> {
   return db.entries.where('date').startsWith(`${yearMonth}-`).sortBy('date')
 }
-
-/** 指定日（YYYY-MM-DD）の記録を作成順で返す */
-export async function listEntriesByDate(date: string): Promise<Entry[]> {
-  return db.entries.where('date').equals(date).sortBy('createdAt')
-}

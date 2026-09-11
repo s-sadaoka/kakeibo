@@ -41,16 +41,6 @@ export async function listAllCategories(): Promise<Category[]> {
   return db.categories.orderBy('sortOrder').toArray()
 }
 
-/** 表示中のカテゴリを sortOrder 順で返す。type を渡すと絞り込む */
-export async function listActiveCategories(type?: EntryType): Promise<Category[]> {
-  const all = await listAllCategories()
-  return all.filter((c) => c.isActive && (type === undefined || c.type === type))
-}
-
-export async function getCategory(id: string): Promise<Category | undefined> {
-  return db.categories.get(id)
-}
-
 /** カテゴリを追加する。並び順は全体の末尾 */
 export async function addCategory(name: string, type: EntryType): Promise<Category> {
   const trimmed = name.trim()

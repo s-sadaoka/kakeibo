@@ -5,8 +5,6 @@ import { seedDefaultCategories } from './categoryRepository'
 export type { Budget, Category, Entry, EntryType, ExportData } from './types'
 export {
   addCategory,
-  getCategory,
-  listActiveCategories,
   listAllCategories,
   renameCategory,
   reorderCategories,
@@ -16,16 +14,13 @@ export {
   addEntry,
   deleteEntry,
   getEntry,
-  listEntriesByDate,
   listEntriesByMonth,
   updateEntry,
   type EntryInput,
 } from './entryRepository'
 export {
   deleteBudget,
-  getBudget,
   listAllBudgets,
-  listBudgetsByMonth,
   upsertBudget,
 } from './budgetRepository'
 export { exportAllData, importAllData } from './backupRepository'

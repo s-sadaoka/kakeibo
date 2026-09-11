@@ -18,18 +18,6 @@ export async function deleteBudget(categoryId: string, yearMonth: string): Promi
   await db.budgets.delete([categoryId, yearMonth])
 }
 
-export async function getBudget(
-  categoryId: string,
-  yearMonth: string,
-): Promise<Budget | undefined> {
-  return db.budgets.get([categoryId, yearMonth])
-}
-
-/** 指定月（YYYY-MM）に明示的に設定された予算だけを返す。前月からの引き継ぎは src/logic/ で行う */
-export async function listBudgetsByMonth(yearMonth: string): Promise<Budget[]> {
-  return db.budgets.where('yearMonth').equals(yearMonth).toArray()
-}
-
 /** 全予算を返す。件数は少ないので、引き継ぎ計算は取得後に純粋関数で行う */
 export async function listAllBudgets(): Promise<Budget[]> {
   return db.budgets.toArray()
