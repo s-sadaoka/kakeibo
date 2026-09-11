@@ -9,6 +9,9 @@
   --color-primary-text: #ffffff;
   --color-danger: #c0392b;
   --color-income: #1e6fb0;
+  --color-warning: #b7791f;
+  --color-warning-bg: #fff7e6;
+  --color-over-bg: #fdecea;
   --tabbar-height: 56px;
 
   font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Noto Sans JP', sans-serif;
@@ -248,4 +251,94 @@ select:focus {
 }
 .button:disabled {
   opacity: 0.5;
+}
+
+/* ホーム：当月の合計 */
+.summary-card {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 16px;
+  margin-bottom: 16px;
+  padding: 12px 16px;
+  background: var(--color-surface);
+  border-radius: 12px;
+}
+.summary-item {
+  display: flex;
+  flex-direction: column;
+}
+.summary-label {
+  font-size: 13px;
+  color: var(--color-muted);
+}
+.summary-value {
+  font-size: 18px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+.summary-value.income {
+  color: var(--color-income);
+}
+.summary-value.over {
+  color: var(--color-danger);
+}
+
+/* ホーム：カテゴリ別の予算 / 実績 / 残額 */
+.budget-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+}
+.budget-table th,
+.budget-table td {
+  padding: 10px 4px;
+  border-bottom: 1px solid var(--color-border);
+  text-align: right;
+  white-space: nowrap;
+}
+.budget-table thead th {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--color-muted);
+}
+.budget-table .col-name {
+  text-align: left;
+  font-weight: 500;
+  /* カテゴリ名が長いときは省略し、金額列を潰さない */
+  max-width: 0;
+  width: 40%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.budget-table .col-remaining {
+  font-weight: 600;
+}
+.status-badge {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 1px 6px;
+  font-size: 11px;
+  font-weight: 600;
+  border-radius: 999px;
+  vertical-align: 1px;
+}
+.status-warning {
+  background: var(--color-warning-bg);
+}
+.status-warning .col-remaining,
+.status-warning .status-badge {
+  color: var(--color-warning);
+}
+.status-warning .status-badge {
+  background: #fde9c4;
+}
+.status-over {
+  background: var(--color-over-bg);
+}
+.status-over .col-remaining,
+.status-over .status-badge {
+  color: var(--color-danger);
+}
+.status-over .status-badge {
+  background: #f8cfcb;
 }
