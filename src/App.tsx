@@ -39,7 +39,7 @@ function App() {
       page = <EntryPage key={route.id} entryId={route.id} />
       break
     case 'calendar':
-      page = <CalendarPage />
+      page = <CalendarPage yearMonth={route.yearMonth} date={route.date} />
       break
     case 'settings':
       page = <SettingsPage />

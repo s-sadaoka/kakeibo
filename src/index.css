@@ -342,3 +342,70 @@ select:focus {
 .status-over .status-badge {
   background: #f8cfcb;
 }
+
+/* カレンダー */
+.calendar {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+  margin-bottom: 16px;
+}
+.cal-weekday {
+  padding: 4px 0;
+  font-size: 12px;
+  text-align: center;
+  color: var(--color-muted);
+}
+.cal-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 52px;
+  padding: 4px 0 2px;
+  font-family: inherit;
+  color: var(--color-text);
+  background: var(--color-surface);
+  border: 2px solid transparent;
+  border-radius: 8px;
+}
+.cal-cell.blank {
+  background: transparent;
+}
+.cal-day {
+  font-size: 14px;
+  line-height: 1.2;
+}
+.cal-amount {
+  margin-top: 2px;
+  max-width: 100%;
+  overflow: hidden;
+  font-size: 10px;
+  line-height: 1.2;
+  color: var(--color-muted);
+  font-variant-numeric: tabular-nums;
+}
+/* 曜日の色（日曜は赤、土曜は青）。見出しと日セルの両方に効く */
+.wd-0 .cal-day,
+.cal-weekday.wd-0 {
+  color: var(--color-danger);
+}
+.wd-6 .cal-day,
+.cal-weekday.wd-6 {
+  color: var(--color-income);
+}
+.cal-cell.today .cal-day {
+  font-weight: 700;
+  text-decoration: underline;
+}
+.cal-cell.selected {
+  border-color: var(--color-primary);
+  background: var(--color-bg);
+}
+
+/* 選択した日の記録 */
+.day-title {
+  margin: 0 0 8px;
+  font-size: 16px;
+  font-weight: 600;
+}

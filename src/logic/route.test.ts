@@ -22,8 +22,13 @@ describe('parseRoute', () => {
   })
 
   it('カレンダーと設定', () => {
-    expect(parseRoute('#/calendar')).toEqual({ name: 'calendar', yearMonth: null })
-    expect(parseRoute('#/calendar?ym=2026-10')).toEqual({ name: 'calendar', yearMonth: '2026-10' })
+    expect(parseRoute('#/calendar')).toEqual({ name: 'calendar', yearMonth: null, date: null })
+    expect(parseRoute('#/calendar?ym=2026-09&date=2026-09-11')).toEqual({
+      name: 'calendar',
+      yearMonth: '2026-09',
+      date: '2026-09-11',
+    })
+    expect(parseRoute('#/calendar?ym=2026-10')).toEqual({ name: 'calendar', yearMonth: '2026-10', date: null })
     expect(parseRoute('#/settings')).toEqual({ name: 'settings' })
   })
 
@@ -42,7 +47,14 @@ describe('paths', () => {
     expect(parseRoute(paths.entryNew())).toEqual({ name: 'entryNew', date: null })
     expect(parseRoute(paths.entryNew('2026-09-01'))).toEqual({ name: 'entryNew', date: '2026-09-01' })
     expect(parseRoute(paths.entryEdit('id-1'))).toEqual({ name: 'entryEdit', id: 'id-1' })
-    expect(parseRoute(paths.calendar('2026-09'))).toEqual({ name: 'calendar', yearMonth: '2026-09' })
+    expect(parseRoute(paths.calendar('2026-09'))).toEqual({ name: 'calendar', yearMonth: '2026-09', date: null })
+    expect(paths.calendar()).toBe('#/calendar')
+    expect(paths.calendar('2026-09', '2026-09-11')).toBe('#/calendar?ym=2026-09&date=2026-09-11')
+    expect(parseRoute(paths.calendar('2026-09', '2026-09-11'))).toEqual({
+      name: 'calendar',
+      yearMonth: '2026-09',
+      date: '2026-09-11',
+    })
     expect(parseRoute(paths.settings())).toEqual({ name: 'settings' })
   })
 })

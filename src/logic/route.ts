@@ -5,7 +5,7 @@ export type Route =
   | { name: 'home'; yearMonth: string | null }
   | { name: 'entryNew'; date: string | null }
   | { name: 'entryEdit'; id: string }
-  | { name: 'calendar'; yearMonth: string | null }
+  | { name: 'calendar'; yearMonth: string | null; date: string | null }
   | { name: 'settings' }
 
 /** 各画面へのハッシュを作る。画面側はこの関数を通してリンクを組み立てる */
@@ -13,7 +13,13 @@ export const paths = {
   home: (yearMonth?: string) => (yearMonth ? `#/?ym=${yearMonth}` : '#/'),
   entryNew: (date?: string) => (date ? `#/entry/new?date=${date}` : '#/entry/new'),
   entryEdit: (id: string) => `#/entry/${id}`,
-  calendar: (yearMonth?: string) => (yearMonth ? `#/calendar?ym=${yearMonth}` : '#/calendar'),
+  calendar: (yearMonth?: string, date?: string) => {
+    const q = new URLSearchParams()
+    if (yearMonth) q.set('ym', yearMonth)
+    if (date) q.set('date', date)
+    const s = q.toString()
+    return s ? `#/calendar?${s}` : '#/calendar'
+  },
   settings: () => '#/settings',
 }
 
@@ -31,7 +37,7 @@ export function parseRoute(hash: string): Route {
     return { name: 'entryEdit', id: segments[1] }
   }
   if (segments[0] === 'calendar' && segments.length === 1) {
-    return { name: 'calendar', yearMonth: query.get('ym') }
+    return { name: 'calendar', yearMonth: query.get('ym'), date: query.get('date') }
   }
   if (segments[0] === 'settings' && segments.length === 1) return { name: 'settings' }
 

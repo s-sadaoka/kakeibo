@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest'
 import {
   addMonths,
   datesOfMonth,
+  formatDateLabel,
   daysInMonth,
   firstWeekday,
   formatLocalDate,
@@ -83,5 +84,15 @@ describe('formatYearMonthLabel', () => {
   it('「2026年9月」のように月の 0 埋めを外す', () => {
     expect(formatYearMonthLabel('2026-09')).toBe('2026年9月')
     expect(formatYearMonthLabel('2026-12')).toBe('2026年12月')
+  })
+})
+
+describe('formatDateLabel', () => {
+  it('月日と曜日を日本語で返す', () => {
+    expect(formatDateLabel('2026-09-11')).toBe('9月11日（金）')
+    expect(formatDateLabel('2026-11-01')).toBe('11月1日（日）')
+  })
+  it('うるう日も正しい曜日になる', () => {
+    expect(formatDateLabel('2024-02-29')).toBe('2月29日（木）')
   })
 })

@@ -57,3 +57,12 @@ export function formatYearMonthLabel(yearMonth: string): string {
   const [y, m] = yearMonth.split('-').map(Number)
   return `${y}年${m}月`
 }
+
+const WEEKDAY_LABELS = ['日', '月', '火', '水', '木', '金', '土']
+
+/** 表示用「9月11日（金）」 */
+export function formatDateLabel(date: string): string {
+  const [y, m, d] = date.split('-').map(Number)
+  const weekday = WEEKDAY_LABELS[new Date(y, m - 1, d).getDay()]
+  return `${m}月${d}日（${weekday}）`
+}
