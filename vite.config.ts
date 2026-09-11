@@ -45,7 +45,5 @@ export default defineConfig({
   test: {
     // 集計ロジック（src/logic/）のユニットテストのみ対象
     include: ['src/**/*.test.ts'],
-    // ステップ 3 でテストを追加するまでは、テストが 0 件でも成功扱いにする
-    passWithNoTests: true,
   },
 })
